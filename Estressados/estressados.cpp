@@ -1,6 +1,6 @@
 #include<iostream>
 #include<vector>
-#include <algorithm>
+#include<algorithm>
 #include<cstdlib>
 bool existe (std::vector<int> vet, int num)
 {
@@ -62,10 +62,7 @@ int procurar_menor_pos_apartir(std::vector<int> lista, int ini)
     int a = procura_menor(lista);
     int b = valor_apartir(lista, a, ini);
     return b;
-    
 }
-
-
 int procurar_melhor_pos_se(std::vector<int> lista)
 {   
     int a = 0;
@@ -114,7 +111,58 @@ std::string mais_homens_ou_mulheres(std::vector<int> lista)
             return "Empate";
         } 
 }
+std::string metade_mais (std::vector<int> lista)
+{
+    int pri = 0;
+    int seg = 0;
+    int tam = lista.size()/2;
+        for (int i = 0; i < tam; i++){
+            if (lista[i] > 0){
+                pri += lista[i];
+            }else{
+                pri += lista[i] * -1;
+            }
+        }
+        for (tam; tam < lista.size(); tam++){
+            if (lista[tam] > 0){
+                seg += lista[tam];
+            }else{
+                seg += lista[tam] * -1;
+            }
+        }
+        if (pri > seg){
+            return "Primeira";
+        }
+        if (seg > pri){
+            return "Segunda";
+        }
+        if (pri == seg){
+            return "Empate";
+        }
+}
+bool homens_sao_mais_estressados_que_mulheres(std::vector<int> lista)
+{
+    int somah{}, somam{}, h{}, m{};
+    float resh{}, resm{};
+        for(int i = 0; i < lista.size(); i++){
+            if(lista[i] > 0){
+                somah += lista[i];
+                h++;
+            }
+            if (lista[i] < 0){
+                somam += lista[i] * -1;
+                m++;
+            }
+        }
+        resh = somah / h;
+        resm = somam / m;
+        if (resh > resm){
+            return true;
+        }else{
+            return false;
+        }
 
+}
 
 int main()
 {
@@ -163,6 +211,14 @@ int main()
     std::cout << mais_homens_ou_mulheres({5, 3, 1, -50, -1, -99}) << "\n"; // "empate"
     std::cout << mais_homens_ou_mulheres({5, 3, 1, -50, -1, 99}); // "homens"
 
+        std::cout << "\n--- Metade mais estressada ---\n";
+    std::cout << metade_mais({5, 3, -1, -50, -1, -99}) << "\n"; // "segunda"
+    std::cout << metade_mais({50, 98, 2, -50, -1, -99}) << "\n"; // "empate"
+    std::cout << metade_mais({-51, 99, 1, -50, -1, -99}); // "primeira"
+
+        std::cout << "\n Homens sao mais estressados que as mulheres ---\n";
+    std::cout << homens_sao_mais_estressados_que_mulheres({5, 3, 1, -50, -1, -99}) << "\n"; // 0
+    std::cout << homens_sao_mais_estressados_que_mulheres({50, 98, 2, -40, -1, -9}); //1
     }
     return 0;
 }
